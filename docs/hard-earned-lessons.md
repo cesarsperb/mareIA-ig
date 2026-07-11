@@ -52,4 +52,25 @@ permanecem válidas aqui; novas lições deste repo começam em HEL-101.
   `~/.fhir/packages` a partir de uma máquina com acesso. O gate completo (`0 Errors`) deve ser
   reexecutado em ambiente com rede antes do primeiro build do IG Publisher.
 
+## HEL-102 — `Observation.subject` não aceita `RelatedPerson` no R4
+- **Sintoma:** `sushi .` (via GitHub Actions) acusou: `The type "Reference(...)" does not match
+  any of the allowed types: Reference(Patient | Group | Device | Location)` no profile
+  `ObservationZaritScore` e no exemplo correspondente; e um erro em cascata de cardinalidade
+  (`Observation.subject has minimum cardinality 1 but occurs 0 time(s)`) porque o `subject`
+  tinha ficado sem valor válido.
+- **Causa:** `Observation.subject` no FHIR R4 base é restrito a `Patient | Group | Device |
+  Location`. `RelatedPerson` (o cuidador, cuja sobrecarga a Observation mede) não está na lista.
+  Isso só aparece quando o SUSHI consegue baixar os pacotes core do FHIR e rodar a validação de
+  tipos — em um ambiente sem acesso a `packages.fhir.org` (ver HEL-101), o erro de download
+  mascara esse erro de modelagem, que só apareceu no CI do GitHub Actions.
+- **Solução:** inverter os elementos — `subject` (1..1) aponta ao **paciente**
+  (`FamiliarAtivaPatientPalliative`, satisfaz a lista de tipos permitidos) e `focus` (1..1) aponta
+  ao **cuidador** (`FamiliarAtivaRelatedPersonCaregiver`), usando `Observation.focus` exatamente
+  para o caso em que "o foco da observação não é o subject". Ajustar profile, exemplo e a página
+  de introdução coerentemente.
+- **Lição geral:** ao perfilar `Observation` (ou qualquer recurso) para um ator que não seja
+  `Patient`, checar a lista de tipos permitidos no elemento base antes de restringir — e lembrar
+  que erros de rede/download no CI podem esconder erros de validação de tipo até a rede estar
+  disponível.
+
 <!-- Próximas lições: adicionar abaixo com id incremental. -->
