@@ -5,8 +5,7 @@
 ## Contexto
 A capa do DAK fonte cita o "SMART Guidelines Starter Kit v2.0.0 (WHO / HL7 **FHIR R5**)", mas o
 requisito de interoperabilidade RNF-04 (§9.2) determina "Dados modelados em **HL7 FHIR R4**.
-Integração com e-SUS APS e RNDS via padrão FHIR". A RNDS opera sobre R4; o template mareIA-ig
-(ATENTO 60+) também é R4 (seu ADR-0002).
+Integração com e-SUS APS e RNDS via padrão FHIR".
 
 ## Decisão
 Adotar **FHIR R4 (4.0.1)**, priorizando o requisito normativo RNF-04 e a compatibilidade com a

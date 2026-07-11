@@ -1,0 +1,59 @@
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/adr/0001-pathway-por-ig.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/adr/0008-fhir-r4-vs-r5.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'input/pagecontent/index.md', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/README.md b/README.md[m
+[1mindex c87a6f5..6090bd9 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -11,8 +11,7 @@[m [mjá estruturado segundo a camada **L2 (DAK)** do [WHO SMART Guidelines](https://[m
+ para a camada **L3 (IG FHIR, máquina-legível)**, mantendo a narrativa L2 publicável.[m
+ > No SMART Guidelines, **cada linha de cuidado (pathway) é um IG separado**. Este repo cobre[m
+ > **somente o FamilIAr_Ativa**. Os demais cenários da mareIA (ATENTO 60+, CardioRemoto, AgroSUS)[m
+[31m-> são repositórios próprios; este repo foi derivado do template [`mareIA-ig`](https://github.com/cesarsperb/mareIA-ig)[m
+[31m-> (ATENTO 60+), conforme ADR-0001.[m
+[32m+[m[32m> são repositórios próprios.[m
+ [m
+ ## Camadas SMART Guidelines[m
+ [m
+[1mdiff --git a/docs/adr/0001-pathway-por-ig.md b/docs/adr/0001-pathway-por-ig.md[m
+[1mindex ed6f264..48af9d6 100644[m
+[1m--- a/docs/adr/0001-pathway-por-ig.md[m
+[1m+++ b/docs/adr/0001-pathway-por-ig.md[m
+[36m@@ -6,8 +6,7 @@[m
+ ## Contexto[m
+ A Plataforma mareIA cobre 4 cenários (ATENTO 60+, CardioRemoto, FamilIAr_Ativa, AgroSUS). No WHO[m
+ SMART Guidelines, a unidade de publicação é a **linha de cuidado (pathway)**, normalmente um IG[m
+[31m-por diretriz/condição. O repositório `mareIA-ig` (ATENTO 60+) estabeleceu essa decisão (seu[m
+[31m-ADR-0001) e se ofereceu como template para os demais cenários.[m
+[32m+[m[32mpor diretriz/condição.[m
+ [m
+ ## Decisão[m
+ Este repositório (`familiarativa-ig`) cobre **exclusivamente o FamilIAr_Ativa** e foi **derivado[m
+[1mdiff --git a/docs/adr/0008-fhir-r4-vs-r5.md b/docs/adr/0008-fhir-r4-vs-r5.md[m
+[1mindex 1e25a81..c7c9bb8 100644[m
+[1m--- a/docs/adr/0008-fhir-r4-vs-r5.md[m
+[1m+++ b/docs/adr/0008-fhir-r4-vs-r5.md[m
+[36m@@ -5,8 +5,7 @@[m
+ ## Contexto[m
+ A capa do DAK fonte cita o "SMART Guidelines Starter Kit v2.0.0 (WHO / HL7 **FHIR R5**)", mas o[m
+ requisito de interoperabilidade RNF-04 (§9.2) determina "Dados modelados em **HL7 FHIR R4**.[m
+[31m-Integração com e-SUS APS e RNDS via padrão FHIR". A RNDS opera sobre R4; o template mareIA-ig[m
+[31m-(ATENTO 60+) também é R4 (seu ADR-0002).[m
+[32m+[m[32mIntegração com e-SUS APS e RNDS via padrão FHIR".[m
+ [m
+ ## Decisão[m
+ Adotar **FHIR R4 (4.0.1)**, priorizando o requisito normativo RNF-04 e a compatibilidade com a[m
+[1mdiff --git a/input/pagecontent/index.md b/input/pagecontent/index.md[m
+[1mindex ce0c2aa..49d5e5a 100644[m
+[1m--- a/input/pagecontent/index.md[m
+[1m+++ b/input/pagecontent/index.md[m
+[36m@@ -7,7 +7,7 @@[m [mdiário de sintomas pelo **ESAS** (6 domínios, 0–10), avaliação de sobrecar[m
+ explicabilidade (**XAI**).[m
+ [m
+ > Este IG cobre **apenas o pathway FamilIAr_Ativa**. No SMART Guidelines, cada linha de cuidado é um[m
+[31m-> IG independente (ver ADR-0001); este repositório foi derivado do template mareIA-ig (ATENTO 60+).[m
+[32m+[m[32m> IG independente (ver ADR-0001).[m
+ [m
+ #### Fluxo de cuidado[m
+ [m

@@ -6,8 +6,7 @@
 ## Contexto
 A Plataforma mareIA cobre 4 cenários (ATENTO 60+, CardioRemoto, FamilIAr_Ativa, AgroSUS). No WHO
 SMART Guidelines, a unidade de publicação é a **linha de cuidado (pathway)**, normalmente um IG
-por diretriz/condição. O repositório `mareIA-ig` (ATENTO 60+) estabeleceu essa decisão (seu
-ADR-0001) e se ofereceu como template para os demais cenários.
+por diretriz/condição.
 
 ## Decisão
 Este repositório (`familiarativa-ig`) cobre **exclusivamente o FamilIAr_Ativa** e foi **derivado

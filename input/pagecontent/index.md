@@ -7,7 +7,7 @@ diário de sintomas pelo **ESAS** (6 domínios, 0–10), avaliação de sobrecar
 explicabilidade (**XAI**).
 
 > Este IG cobre **apenas o pathway FamilIAr_Ativa**. No SMART Guidelines, cada linha de cuidado é um
-> IG independente (ver ADR-0001); este repositório foi derivado do template mareIA-ig (ATENTO 60+).
+> IG independente (ver ADR-0001).
 
 #### Fluxo de cuidado
 

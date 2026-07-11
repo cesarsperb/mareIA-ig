@@ -11,8 +11,7 @@ já estruturado segundo a camada **L2 (DAK)** do [WHO SMART Guidelines](https://
 para a camada **L3 (IG FHIR, máquina-legível)**, mantendo a narrativa L2 publicável.
 > No SMART Guidelines, **cada linha de cuidado (pathway) é um IG separado**. Este repo cobre
 > **somente o FamilIAr_Ativa**. Os demais cenários da mareIA (ATENTO 60+, CardioRemoto, AgroSUS)
-> são repositórios próprios; este repo foi derivado do template [`mareIA-ig`](https://github.com/cesarsperb/mareIA-ig)
-> (ATENTO 60+), conforme ADR-0001.
+> são repositórios próprios.
 
 ## Camadas SMART Guidelines
 
