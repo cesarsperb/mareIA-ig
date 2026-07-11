@@ -1,0 +1,725 @@
+
+===== PAGE 1 =====
+Digital Adaptation Kit (DAK) — L2
+FamilIAr_Ativa
+Telemonitoramento em Cuidados Paliativos Domiciliares
+Plataforma mare.IA  ·  UFPel / CUIDATIVA / RNP
+SMART Guidelines — DAK L2  ·  Versão 0.1  ·  Junho 2026
+Baseado no SMART Guidelines Starter Kit v2.0.0 (WHO / HL7 FHIR R5)
+
+===== PAGE 2 =====
+Componente 1 — Intervenções de Saúde e 
+Recomendações
+O FamilIAr_Ativa é um módulo da plataforma mare.IA dedicado ao suporte contínuo de pacientes 
+em cuidados paliativos domiciliares e seus cuidadores. O módulo digitaliza protocolos clínicos 
+padronizados (ESAS e Zarit), agrega inteligência artificial para detecção e predição de risco e 
+conecta cuidadores à equipe de saúde por comunicação segura.
+1.1 Intervenções de Saúde (UHC)
+Intervenção UHC
+Domínio clínico
+Relevância no módulo
+Cuidados paliativos domiciliares
+Doenças não transmissíveis / 
+Cuidado continuado
+Escopo principal do módulo
+Manejo de sintomas (dor, 
+dispneia, ansiedade, fadiga)
+Controle de sintomas paliativos
+Formulário ESAS — 6 domínios 
+0–10
+Apoio ao cuidador familiar
+Saúde mental / Suporte social
+Escala Zarit — 22 itens, 0–88
+Comunicação profissional-
+paciente
+Telessaúde / Telecomunicação
+Chat seguro assíncrono
+Educação em saúde e literacia
+Promoção da saúde
+Módulos educativos + direitos e 
+rede de apoio
+1.2 Intervenções de Saúde Digital (WHO-DHI)
+Código DHI
+Intervenção digital
+Implementação no FamilIAr_Ativa
+A1.1
+Coleta de dados clínicos por formulário 
+digital
+ESAS e Zarit em app mobile/web
+A2.1
+Transmissão de dados clínicos ao 
+profissional
+Registro ESAS → alerta ao profissional 
+vinculado
+B1.1
+Suporte à decisão clínica baseado em 
+protocolo
+RF-PS05 — Detecção de risco por 
+protocolo auditável
+B2.1
+Predição de risco por IA com 
+explicabilidade (XAI)
+RF-PS06 — Modelo preditivo + XAI
+C1.1
+Comunicação assíncrona segura 
+profissional–paciente
+Chat cuidador ↔ profissional
+D1.1
+Indicadores epidemiológicos agregados
+Painel Gestor/SUS — dados 
+desidentificados
+E1.1
+Educação digital em saúde
+Módulos educativos prescritos pela 
+equipe
+
+===== PAGE 3 =====
+Componente 2 — Personas Genéricas
+O FamilIAr_Ativa opera em dois cenários distintos definidos no Documento de Requisitos:
+•
+Cenário A: Paciente em autocuidado — opera o sistema diretamente.
+•
+Cenário B: Paciente com cuidador — cuidador opera o sistema; paciente é fonte de dados 
+clínicos.
+Persona 1 — Cuidador Familiar (PC)
+Atributo
+Descrição
+Papel
+Usuário primário do sistema. Registra sintomas, responde Zarit, troca 
+mensagens com profissional e acessa módulos educativos.
+Perfil
+Familiar adulto sem formação técnica em saúde. Baixa a moderada literacia 
+digital. Contexto domiciliar com conectividade variável.
+Competências 
+essenciais
+Uso de smartphone; identificação de sintomas do paciente; comunicação 
+com equipe de saúde.
+Necessidades
+Interface simples em mobile; feedback imediato sobre o risco; acesso 
+rápido ao profissional em caso de piora.
+Restrições
+Sem vocabulário clínico técnico; possível sobrecarga emocional; 
+disponibilidade intermitente.
+Persona 2 — Paciente em Autocuidado (PC-A)
+Atributo
+Descrição
+Papel
+Usuário do sistema com autonomia funcional para autoregistro. Realiza as 
+mesmas funções do Cuidador.
+Perfil
+Paciente com condição paliativa estável, capaz de operar dispositivo digital 
+com assistência mínima.
+Restrições
+Fadiga, dor ou limitação cognitiva podem impactar o preenchimento. 
+Interface deve ser acessível.
+Persona 3 — Profissional de Saúde (PS)
+Atributo
+Descrição
+Papel
+Monitoramento clínico de pacientes vinculados. Recebe alertas, responde 
+mensagens, usa IA clínica, visualiza dashboards e tendências.
+Perfil
+Médico, enfermeiro, psicólogo ou fisioterapeuta. Formação clínica em 
+cuidados paliativos. Literate em sistemas digitais de saúde.
+Competências 
+essenciais
+Interpretação de escalas ESAS e Zarit; tomada de decisão clínica; uso de 
+suporte por IA.
+Necessidades
+Alertas em tempo real; dashboard consolidado; comunicação ágil com 
+cuidadores; explicabilidade das recomendações de IA (XAI).
+
+===== PAGE 4 =====
+Persona 4 — Gestor / Equipe SUS (GT)
+Atributo
+Descrição
+Papel
+Acessa indicadores epidemiológicos agregados, monitora adesão da equipe 
+e exporta relatórios para gestão da unidade de saúde.
+Perfil
+Coordenador de saúde, gestor de unidade ou equipe SUS. Sem acesso a 
+dados clínicos individuais (dados desidentificados).
+Necessidades
+Painel de indicadores em tempo real; taxa de adesão (meta 80%); 
+distribuição de risco; exportação PDF.
+
+===== PAGE 5 =====
+Componente 3 — Cenários de Usuário
+Cenário 1 — Registro diário de sintomas (ESAS)
+João, cuidador de sua mãe Maria (paciente oncológica em cuidados paliativos domiciliares), abre o 
+aplicativo FamilIAr_Ativa no celular às 09h. Seleciona o perfil de Maria e acessa o formulário 
+ESAS. Desliza os controles para cada um dos seis sintomas — Maria hoje está com dor nível 8 e 
+dispneia nível 7. Ao submeter, o sistema calcula a soma (incluindo outros sintomas) e classifica o 
+risco como Alto. Uma mensagem orienta João a contatar o profissional. Simultaneamente, a Dra. 
+Ana Costa recebe um alerta no dashboard clínico e acessa o histórico de Maria. Envia uma 
+mensagem ao João pelo chat seguro com orientações de manejo imediato e agenda visita para o 
+dia seguinte.
+Cenário 2 — Avaliação de sobrecarga (Zarit)
+O sistema notifica João que é hora de responder a Escala Zarit — avaliação periódica de 
+sobrecarga do cuidador. João responde os 22 itens em aproximadamente 5 minutos. A pontuação 
+é 64 pontos, classificada como Sobrecarga Severa. O sistema exibe o resultado a João e notifica a 
+Dra. Ana, que prioriza uma conversa com João na próxima semana para avaliação do suporte 
+necessário ao cuidador.
+Cenário 3 — Consulta de IA clínica
+A Dra. Ana acessa o dashboard e nota que três dos seus pacientes têm apresentado piora 
+progressiva no escore de dispneia nos últimos 14 dias. Aciona o módulo de IA clínica, que injetou 
+automaticamente o contexto dos registros ESAS recentes. Digita: 'Paciente com piora progressiva 
+de dispneia. Qual a probabilidade de deterioração nas próximas 72h?' O sistema retorna uma 
+análise baseada no modelo preditivo com explicação XAI dos fatores de risco mais relevantes.
+Cenário 4 — Gestor monitora adesão
+A coordenadora da unidade SMS Pelotas acessa o painel de gestão e verifica que a taxa de 
+adesão ao monitoramento caiu para 74% na última semana — abaixo da meta de 80%. Filtra por 
+profissional e identifica que um dos médicos tem 3 pacientes sem registro nos últimos 7 dias. 
+Exporta o relatório em PDF para discussão na reunião de equipe.
+
+===== PAGE 6 =====
+Componente 4 — Processos de Negócio Genéricos e 
+Fluxos
+4.1 Matriz de processos-chave
+ID
+Processo
+Persona principal
+Resultado esperado
+BP-01
+Registro de sintomas 
+ESAS
+Cuidador / Paciente
+Registro clínico + classificação 
+de risco automática
+BP-02
+Avaliação de 
+sobrecarga Zarit
+Cuidador
+Pontuação + classificação + 
+notificação se severa
+BP-03
+Gestão de alertas 
+clínicos
+Profissional de Saúde
+Alerta resolvido com anotação 
+clínica
+BP-04
+Comunicação 
+cuidador–profissional
+Cuidador + Profissional
+Mensagem entregue, 
+respondida e registrada
+BP-05
+Suporte de IA clínica
+Profissional de Saúde
+Recomendação com 
+explicabilidade XAI
+BP-06
+Acesso a módulos 
+educativos
+Cuidador / Paciente
+Engajamento registrado no 
+perfil do paciente
+BP-07
+Monitoramento 
+epidemiológico
+Gestor / SUS
+Indicadores atualizados; 
+relatório exportado
+4.2 Fluxo BP-01 — Registro ESAS (BPMN narrativo)
+Etapa
+Descrição da atividade
+1
+Cuidador/Paciente acessa o sistema e seleciona o perfil do paciente (UC-06).
+2
+Preenche os 6 campos ESAS (dor, dispneia, ansiedade, cansaço, apetite, bem-
+estar) com valores 0–10.
+3
+[DECISÃO] Todos os campos preenchidos? Não → retorna à etapa 2. Sim → 
+avança.
+4
+Sistema soma escores e classifica: Baixo (0–30) / Moderado (31–50) / Alto (51–70). 
+Gera timestamp imutável.
+5
+[DECISÃO] Risco Alto? Sim → exibe mensagem de orientação ao cuidador + 
+dispara UC-19 (alerta) + UC-21 (notificação). Não → exibe confirmação de envio.
+6
+Profissional recebe notificação e acessa dashboard (UC-07/UC-08).
+
+===== PAGE 7 =====
+Componente 5 — Elementos de Dados Centrais
+5.1 Dicionário de dados — Formulário ESAS
+Campo
+Tipo
+Min
+Max
+Obrig.
+Mapeamento FHIR/LOINC
+dor
+Numérico (int)
+0
+10
+Sim
+Observation (LOINC 38208-
+5)
+dispneia
+Numérico (int)
+0
+10
+Sim
+Observation (LOINC 89443-
+6)
+ansiedade
+Numérico (int)
+0
+10
+Sim
+Observation (LOINC 89444-
+4)
+cansaco
+Numérico (int)
+0
+10
+Sim
+Observation (LOINC 89445-
+1)
+apetite
+Numérico (int)
+0
+10
+Sim
+Observation (LOINC 89446-
+9)
+bem_estar
+Numérico (int)
+0
+10
+Sim
+Observation (LOINC 89447-
+7)
+nivel_risco
+Enum 
+(calculado)
+—
+—
+Calculado
+RiskAssessment.prediction.
+outcome (SNOMED CT)
+data_registro
+Timestamp 
+(UTC)
+—
+—
+Auto
+Observation.effectiveDateTi
+me
+5.2 Dicionário de dados — Escala Zarit
+Campo
+Tipo
+Min
+Max
+Obrig.
+Mapeamento FHIR
+respostas[22]
+Array int
+0
+4 × 22
+Sim
+QuestionnaireResponse.ite
+m[0..21]
+pontuacao
+Int (calculado)
+0
+88
+Calculado
+Observation.valueInteger
+classificacao
+Enum 
+(calculado)
+—
+—
+Calculado
+Observation.interpretation 
+(Leve/Moderada/Severa)
+data_avaliaca
+o
+Timestamp 
+(UTC)
+—
+—
+Auto
+Observation.effectiveDateTi
+me
+5.3 Dicionário de dados — Alerta clínico
+Campo
+Tipo
+Descrição / Mapeamento FHIR
+alerta_id
+UUID
+Flag.id
+paciente_id
+UUID (FK)
+Flag.subject → Patient
+profissional_id
+UUID (FK)
+Flag.author → Practitioner
+tipo
+Enum
+ESAS_ALTO | ZARIT_SEVERA | ADESAO_BAIXA
+
+===== PAGE 8 =====
+Campo
+Tipo
+Descrição / Mapeamento FHIR
+status
+Enum
+Aberto | Resolvido → Flag.status (active/inactive)
+criado_em
+Timestamp
+Flag.period.start
+
+===== PAGE 9 =====
+Componente 6 — Lógica de Suporte à Decisão
+6.1 Tabela de decisão — Classificação de risco ESAS (DMN)
+Entrada: soma_esas (0–70)
+Saída: nivel_risco
+Ação do sistema
+0 – 30
+Baixo
+Exibir confirmação de envio. 
+Sem alerta.
+31 – 50
+Moderado
+Exibir confirmação. Registrar 
+para tendência.
+51 – 70
+Alto
+Exibir orientação ao cuidador. 
+Criar alerta. Notificar 
+profissional vinculado.
+6.2 Tabela de decisão — Classificação Zarit (DMN)
+Entrada: pontuacao_zarit (0–
+88)
+Saída: classificacao
+Ação do sistema
+0 – 20
+Leve
+Exibir resultado. Registrar 
+histórico. Sem notificação.
+21 – 40
+Moderada
+Exibir resultado. Registrar 
+histórico. Sem notificação.
+41 – 88
+Severa
+Exibir resultado ao cuidador. 
+Notificar profissional vinculado.
+6.3 Tabela de decisão — Alertas ativos (RA)
+Regra
+Condição de disparo
+Ação do sistema
+RA-01
+soma_esas > 50
+Criar alerta ESAS_ALTO + notificar 
+profissional + mensagem ao 
+cuidador
+RA-02
+zarit >= 41
+Criar alerta ZARIT_SEVERA + 
+notificar profissional
+RA-03
+dias_sem_registro > 
+janela_esperada
+Sinalizar queda de adesão no painel 
+do Gestor
+RA-04
+alerta.status = Aberto (sem 
+resolução)
+Manter visível no painel do Gestor 
+como 'requer atenção'
+RA-05
+nivel_risco = Alto
+Exibir mensagem bidirecional: 
+cuidador + profissional
+
+===== PAGE 10 =====
+Componente 7 — Lógica de Agendamento
+Evento
+Frequência padrão
+Condição de ajuste
+Responsável pela 
+configuração
+Registro ESAS
+Diário
+Pode ser aumentado 
+para 2×/dia se risco 
+Alto recente
+Profissional de saúde
+Escala Zarit
+Mensal (padrão)
+Semanal se 
+classificação Severa 
+na última avaliação
+Profissional de saúde
+Notificação de adesão
+Semanal (Gestor)
+Alerta imediato se taxa 
+< 80% em qualquer 
+período de 7 dias
+Sistema automático
+Atualização dashboard 
+Gestor
+A cada hora (view 
+materializada)
+Tempo real para 
+alertas abertos
+Sistema automático
+Nota: A lógica de agendamento segue o padrão DMN e será implementada como 
+ServiceRequest.occurrence[x] no modelo FHIR. A frequência padrão é configurada pelo 
+profissional de saúde no momento do cadastro do vínculo clínico.
+
+===== PAGE 11 =====
+Componente 8 — Indicadores e Métricas de 
+Desempenho
+ID
+Indicador
+Numerador
+Denomin
+ador
+Fonte / Desagregação
+IND-01
+Taxa de adesão ao 
+monitoramento (%)
+Pacientes com ≥1 
+registro ESAS no 
+período
+Total de 
+pacientes 
+ativos
+REGISTRO_SINTOMA
+S / Meta: 80%
+IND-02
+Proporção de registros 
+com risco Alto
+Registros com 
+nivel_risco = Alto
+Total de 
+registros 
+ESAS no 
+período
+REGISTRO_SINTOMA
+S / por profissional
+IND-03
+Taxa de resolução de 
+alertas
+Alertas com status = 
+Resolvido
+Total de 
+alertas 
+criados no 
+período
+ALERTA / por 
+profissional
+IND-04
+Prevalência de 
+sobrecarga severa do 
+cuidador
+Avaliações Zarit com 
+classificação Severa
+Total de 
+avaliaçõe
+s Zarit no 
+período
+ESCALA_ZARIT / por 
+unidade
+IND-05
+Tempo médio de 
+resolução de alerta 
+(horas)
+Soma (resolvido_em – 
+criado_em) para 
+alertas resolvidos
+Total de 
+alertas 
+resolvidos
+ALERTA / por 
+profissional
+IND-06
+Taxa de engajamento 
+educativo
+Pacientes com ≥1 
+acesso a módulo 
+educativo no mês
+Total de 
+pacientes 
+ativos
+ACESSO_MODULO / 
+por unidade
+IND-07
+Pontuação média 
+ESAS por domínio
+Soma dos escores por 
+sintoma
+Total de 
+registros 
+no 
+período
+REGISTRO_SINTOMA
+S / por diagnóstico
+
+===== PAGE 12 =====
+Componente 9 — Requisitos Funcionais e Não 
+Funcionais
+9.1 Requisitos Funcionais
+ID
+Persona
+Requisito funcional
+Critério de aceitação
+RF-PC01
+Cuidador/
+Paciente
+Registrar sintomas via formulário 
+ESAS (6 campos 0–10)
+Todos os campos obrigatórios; 
+risco calculado e exibido 
+imediatamente; timestamp 
+imutável
+RF-PC02
+Cuidador
+Responder Escala Zarit (22 itens, 0–
+4 cada)
+22 itens obrigatórios; pontuação 
+e classificação exibidas; 
+notificação se Severa
+RF-PC03
+Cuidador/
+Paciente
+Enviar mensagem ao profissional via 
+chat seguro
+Mensagem não pode ser vazia; 
+canal criptografado; histórico 
+mantido
+RF-PC04
+Cuidador/
+Paciente
+Acessar módulos educativos por 
+categoria
+Acesso registrado em 
+ACESSO_MODULO com 
+timestamp
+RF-PC05
+Cuidador/
+Paciente
+Consultar direitos e rede de apoio 
+(SUS)
+Seção disponível offline; 
+contatos de serviços incluídos
+RF-PS01
+Profissional
+Visualizar dashboard consolidado de 
+pacientes ativos
+Atualização em tempo real; 
+filtros por período e risco
+RF-PS02
+Profissional
+Receber e resolver alertas clínicos
+Alerta criado automaticamente; 
+status rastreável; observação 
+clínica registrada
+RF-PS03
+Profissional
+Consultar gráficos de tendência de 
+sintomas (14 dias)
+Visualização por paciente e por 
+domínio ESAS
+RF-PS04
+Profissional
+Responder mensagens de 
+cuidadores
+Histórico acessível; notificação 
+de nova mensagem
+RF-PS05
+Profissional
+Consultar detecção de risco 
+baseada em protocolo auditável
+Regras DMN documentadas; 
+resultado explicável
+RF-PS06
+Profissional
+Consultar predição de risco com IA 
+e XAI
+Modelo preditivo com score de 
+probabilidade; fatores 
+explicados por XAI
+RF-GT01
+Gestor/SUS
+Visualizar indicadores 
+epidemiológicos agregados (dados 
+desidentificados)
+IND-01 a IND-07 disponíveis; 
+sem acesso a dados individuais
+RF-GT02
+Gestor/SUS
+Exportar relatório de pacientes em 
+PDF
+Filtros por período, profissional 
+e diagnóstico; geração < 30 seg
+
+===== PAGE 13 =====
+9.2 Requisitos Não Funcionais
+ID
+Categoria
+Requisito
+RNF-01
+Segurança
+Dados clínicos criptografados em trânsito (TLS 1.3) e em 
+repouso (AES-256). Conformidade LGPD.
+RNF-02
+Autenticação
+Acesso por perfil com autenticação multifator. Row Level 
+Security (RLS) no banco de dados.
+RNF-03
+Responsividade
+Interface funcional em mobile (≤ 375px) e web. Tempo de 
+resposta < 2s para formulários ESAS.
+RNF-04
+Interoperabilidade
+Dados modelados em HL7 FHIR R4. Integração com e-SUS 
+APS e RNDS via padrão FHIR. Terminologias: LOINC, 
+SNOMED CT, CID-10.
+RNF-05
+Disponibilidade
+SLA de 99,5% para o módulo de coleta. Suporte a modo offline 
+para formulários ESAS (sincronização quando online).
+RNF-06
+Escalabilidade
+Arquitetura PostgreSQL com schemas por módulo (auth, 
+clinical, alerts, messaging, education, analytics). Suporte a 
+crescimento incremental até TRL 7.
+RNF-07
+Privacidade
+Gestor acessa apenas views materializadas desidentificadas 
+(schema analytics). Dados individuais acessíveis apenas ao 
+profissional vinculado.
+RNF-08
+Acessibilidade
+Conformidade WCAG 2.1 AA. Fontes mínimas de 16px em 
+mobile. Contraste ≥ 4.5:1. Suporte a leitores de tela.
+
+===== PAGE 14 =====
+Referências e Rastreabilidade
+Este DAK L2 foi produzido com base nos seguintes documentos fonte:
+•
+Documento de Requisitos — Módulo FamilIAr_Ativa (UFPel / CUIDATIVA, maio 2026)
+•
+Proposta RNP — Plataforma mareIA: Telemonitoramento Inteligente para Gestão de Risco 
+e Cuidado Integral (UFPE/UFPel/UFPB/FATEC, outubro 2025)
+•
+WHO SMART Guidelines Starter Kit v2.0.0 (https://smart.who.int/ig-starter-kit)
+•
+WHO Classification of Digital Health Interventions v2.0 (DHI 2023)
+•
+HL7 FHIR R4 — Recursos: Observation, QuestionnaireResponse, Flag, RiskAssessment, 
+ServiceRequest, Communication
+•
+LOINC — Edmonton Symptom Assessment System (ESAS) codes
+•
+LGPD — Lei Geral de Proteção de Dados Pessoais (Lei 13.709/2018)
+Próxima etapa recomendada: Desenvolvimento do DAK L3 (FHIR Implementation Guide) com 
+mapeamento formal dos recursos, perfis FHIR, lógica CQL e testes automatizados.
+FamilIAr_Ativa DAK L2 · v0.1 · Junho 2026 · UFPel / CUIDATIVA / RNP · SMART Guidelines WHO

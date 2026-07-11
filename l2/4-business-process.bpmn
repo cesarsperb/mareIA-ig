@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fonte L1: DAK FamilIAr_Ativa §4.1 (matriz BP-01..BP-07) e §4.2 (fluxo BP-01). Pathway FamilIAr_Ativa. -->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Defs_familiarativa"
+                  targetNamespace="https://mareia.saude.gov.br/bpmn/familiarativa">
+  <bpmn:process id="Process_bp01_esas" name="BP-01 — Registro de sintomas ESAS (FamilIAr_Ativa)" isExecutable="false">
+
+    <bpmn:startEvent id="start" name="Cuidador/Paciente inicia registro diário">
+      <bpmn:outgoing>f1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Etapa 1: acesso e seleção de perfil (UC-06) -->
+    <bpmn:task id="t_perfil" name="Acessar sistema e selecionar perfil do paciente (UC-06)">
+      <bpmn:incoming>f1</bpmn:incoming><bpmn:outgoing>f2</bpmn:outgoing>
+    </bpmn:task>
+
+    <!-- Etapa 2: preenchimento do ESAS -->
+    <bpmn:task id="t_esas" name="Preencher os 6 campos ESAS (dor, dispneia, ansiedade, cansaço, apetite, bem-estar) 0–10">
+      <bpmn:incoming>f2</bpmn:incoming><bpmn:incoming>f_incompleto</bpmn:incoming><bpmn:outgoing>f3</bpmn:outgoing>
+    </bpmn:task>
+
+    <!-- Etapa 3: decisão — todos preenchidos? -->
+    <bpmn:exclusiveGateway id="g_completo" name="Todos os campos preenchidos?">
+      <bpmn:incoming>f3</bpmn:incoming><bpmn:outgoing>f_sim</bpmn:outgoing><bpmn:outgoing>f_incompleto</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Etapa 4: soma, classificação e timestamp imutável -->
+    <bpmn:task id="t_classifica" name="Somar escores e classificar: Baixo (0–30) / Moderado (31–50) / Alto (51–70); gerar timestamp imutável">
+      <bpmn:incoming>f_sim</bpmn:incoming><bpmn:outgoing>f4</bpmn:outgoing>
+    </bpmn:task>
+
+    <!-- Etapa 5: decisão — risco Alto? -->
+    <bpmn:exclusiveGateway id="g_risco" name="Risco Alto?">
+      <bpmn:incoming>f4</bpmn:incoming><bpmn:outgoing>f_alto</bpmn:outgoing><bpmn:outgoing>f_nao_alto</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:task id="t_orientacao" name="Exibir orientação ao cuidador + disparar UC-19 (alerta) e UC-21 (notificação)">
+      <bpmn:incoming>f_alto</bpmn:incoming><bpmn:outgoing>f5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="t_confirma" name="Exibir confirmação de envio">
+      <bpmn:incoming>f_nao_alto</bpmn:incoming><bpmn:outgoing>f6</bpmn:outgoing>
+    </bpmn:task>
+
+    <!-- Etapa 6: profissional acessa dashboard (UC-07/UC-08) -->
+    <bpmn:task id="t_dashboard" name="Profissional recebe notificação e acessa dashboard (UC-07/UC-08)">
+      <bpmn:incoming>f5</bpmn:incoming><bpmn:outgoing>f7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="t_gestao_alerta" name="BP-03: gerir alerta — responder cuidador (BP-04), resolver com anotação clínica">
+      <bpmn:incoming>f7</bpmn:incoming><bpmn:outgoing>f8</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:endEvent id="end_ok" name="Registro concluído">
+      <bpmn:incoming>f6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="end_alerta" name="Alerta tratado / registro concluído">
+      <bpmn:incoming>f8</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="f1" sourceRef="start" targetRef="t_perfil"/>
+    <bpmn:sequenceFlow id="f2" sourceRef="t_perfil" targetRef="t_esas"/>
+    <bpmn:sequenceFlow id="f3" sourceRef="t_esas" targetRef="g_completo"/>
+    <bpmn:sequenceFlow id="f_sim" name="Sim" sourceRef="g_completo" targetRef="t_classifica"/>
+    <bpmn:sequenceFlow id="f_incompleto" name="Não — retornar ao preenchimento" sourceRef="g_completo" targetRef="t_esas"/>
+    <bpmn:sequenceFlow id="f4" sourceRef="t_classifica" targetRef="g_risco"/>
+    <bpmn:sequenceFlow id="f_alto" name="Sim (51–70)" sourceRef="g_risco" targetRef="t_orientacao"/>
+    <bpmn:sequenceFlow id="f_nao_alto" name="Não (0–50)" sourceRef="g_risco" targetRef="t_confirma"/>
+    <bpmn:sequenceFlow id="f5" sourceRef="t_orientacao" targetRef="t_dashboard"/>
+    <bpmn:sequenceFlow id="f6" sourceRef="t_confirma" targetRef="end_ok"/>
+    <bpmn:sequenceFlow id="f7" sourceRef="t_dashboard" targetRef="t_gestao_alerta"/>
+    <bpmn:sequenceFlow id="f8" sourceRef="t_gestao_alerta" targetRef="end_alerta"/>
+
+  </bpmn:process>
+</bpmn:definitions>

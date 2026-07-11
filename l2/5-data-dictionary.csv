@@ -1,0 +1,21 @@
+id,rotulo_ptbr,componente_dak,tipo,valores_ou_unidade,sistema_codigo,codigo,obrigatorio,fonte_l1
+esas-dor,ESAS Dor,ESAS,integer,0-10,LOINC,38208-5,sim,DAK 5.1 (REVISAR ADR-0004)
+esas-dispneia,ESAS Dispneia,ESAS,integer,0-10,LOINC,89443-6,sim,DAK 5.1 (REVISAR ADR-0004)
+esas-ansiedade,ESAS Ansiedade,ESAS,integer,0-10,LOINC,89444-4,sim,DAK 5.1 (REVISAR ADR-0004)
+esas-cansaco,ESAS Cansaco,ESAS,integer,0-10,LOINC,89445-1,sim,DAK 5.1 (REVISAR ADR-0004)
+esas-apetite,ESAS Apetite,ESAS,integer,0-10,LOINC,89446-9,sim,DAK 5.1 (REVISAR ADR-0004)
+esas-bem-estar,ESAS Bem-estar,ESAS,integer,0-10,LOINC,89447-7,sim,DAK 5.1 (REVISAR ADR-0004)
+esas-soma,Soma ESAS (escore total),ESAS,integer calculado,0-70 (max aritmetico 60 - REVISAR ADR-0004),familiarativa-obs-code,esas-total-score,calculado,DAK 4.2 etapa 4; 6.1
+esas-nivel-risco,Nivel de risco ESAS,ESAS,enum calculado,Baixo|Moderado|Alto,familiarativa-esas-risk,baixo|moderado|alto,calculado,DAK 5.1; 6.1
+esas-data-registro,Data do registro (UTC imutavel),ESAS,timestamp,ISO-8601 UTC,,,auto,DAK 5.1; RF-PC01
+zarit-respostas,Escala Zarit - respostas (22 itens),Zarit,array int[22],0-4 por item,,,sim,DAK 5.2 (itens ZBI-22 nao transcritos - REVISAR ADR-0005)
+zarit-pontuacao,Pontuacao Zarit,Zarit,integer calculado,0-88,familiarativa-obs-code,zarit-total-score,calculado,DAK 5.2
+zarit-classificacao,Classificacao Zarit,Zarit,enum calculado,Leve|Moderada|Severa,familiarativa-zarit-class,leve|moderada|severa,calculado,DAK 5.2; 6.2
+zarit-data-avaliacao,Data da avaliacao (UTC),Zarit,timestamp,ISO-8601 UTC,,,auto,DAK 5.2
+alerta-id,Identificador do alerta,Alerta,UUID,Flag.id,,,auto,DAK 5.3
+alerta-paciente,Paciente do alerta,Alerta,UUID (FK),Flag.subject -> Patient,,,sim,DAK 5.3
+alerta-profissional,Profissional vinculado,Alerta,UUID (FK),Flag.author -> Practitioner,,,sim,DAK 5.3
+alerta-tipo,Tipo do alerta,Alerta,enum,ESAS_ALTO|ZARIT_SEVERA|ADESAO_BAIXA,familiarativa-alert-type,esas-alto|zarit-severa|adesao-baixa,sim,DAK 5.3
+alerta-status,Status do alerta,Alerta,enum,Aberto|Resolvido -> Flag.status (active/inactive),,,sim,DAK 5.3
+alerta-criado-em,Criacao do alerta,Alerta,timestamp,Flag.period.start,,,auto,DAK 5.3
+acesso-modulo,Acesso a modulo educativo,Educacao,evento,timestamp por acesso (ACESSO_MODULO),,,auto,DAK RF-PC04; IND-06

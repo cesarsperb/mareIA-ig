@@ -1,0 +1,19 @@
+@startuml
+title Atores (personas) — FamilIAr_Ativa
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam actorStyle awesome
+
+actor "Cuidador Familiar\n(PC)" as PC
+actor "Paciente em\nAutocuidado (PC-A)" as PCA
+actor "Profissional de\nSaúde (PS)" as PS
+actor "Gestor / Equipe\nSUS (GT)" as GT
+
+rectangle "Plataforma mare.IA — FamilIAr_Ativa\nESAS · Zarit · Alertas · Chat seguro · IA/XAI · Educação" as SYS
+
+PC -- SYS
+PCA -- SYS
+PS -- SYS
+GT -- SYS
+@enduml

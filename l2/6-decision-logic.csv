@@ -1,0 +1,17 @@
+tabela,entrada,condicao,saida,observacao,fonte_l1
+escore-esas,dominios dor..bem-estar,soma dos 6 dominios (0-10 cada),soma_esas (tabela ate 70; max aritmetico 60),REVISAR ADR-0004,DAK 4.2 etapa 4; 6.1
+faixa-risco-esas,soma_esas,0 a 30,Baixo,exibir confirmacao de envio; sem alerta,DAK 6.1
+faixa-risco-esas,soma_esas,31 a 50,Moderado,exibir confirmacao; registrar para tendencia,DAK 6.1
+faixa-risco-esas,soma_esas,51 a 70,Alto,exibir orientacao ao cuidador; criar alerta; notificar profissional,DAK 6.1 (REVISAR ADR-0004)
+classificacao-zarit,pontuacao_zarit,0 a 20,Leve,exibir resultado; registrar historico; sem notificacao,DAK 6.2
+classificacao-zarit,pontuacao_zarit,21 a 40,Moderada,exibir resultado; registrar historico; sem notificacao,DAK 6.2
+classificacao-zarit,pontuacao_zarit,41 a 88,Severa,exibir resultado ao cuidador; notificar profissional vinculado,DAK 6.2
+alerta,RA-01,soma_esas > 50,Criar alerta ESAS_ALTO + notificar profissional + mensagem ao cuidador,,DAK 6.3
+alerta,RA-02,zarit >= 41,Criar alerta ZARIT_SEVERA + notificar profissional,,DAK 6.3
+alerta,RA-03,dias_sem_registro > janela_esperada,Sinalizar queda de adesao no painel do Gestor,,DAK 6.3
+alerta,RA-04,alerta.status = Aberto (sem resolucao),Manter visivel no painel do Gestor como requer atencao,,DAK 6.3
+alerta,RA-05,nivel_risco = Alto,Exibir mensagem bidirecional: cuidador + profissional,,DAK 6.3
+agendamento,registro-esas,padrao,Diario; pode ser 2x/dia se risco Alto recente,configurado pelo profissional,DAK Componente 7
+agendamento,escala-zarit,padrao,Mensal; semanal se classificacao Severa na ultima avaliacao,configurado pelo profissional,DAK Componente 7
+agendamento,notificacao-adesao,taxa < 80% em qualquer periodo de 7 dias,Alerta imediato ao Gestor (padrao: semanal),sistema automatico,DAK Componente 7
+agendamento,dashboard-gestor,padrao,A cada hora (view materializada); tempo real para alertas abertos,sistema automatico,DAK Componente 7

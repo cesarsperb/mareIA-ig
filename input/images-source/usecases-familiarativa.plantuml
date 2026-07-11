@@ -1,0 +1,38 @@
+@startuml
+title Casos de uso — FamilIAr_Ativa
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam actorStyle awesome
+
+actor "Cuidador\nFamiliar" as PC
+actor "Paciente em\nAutocuidado" as PCA
+actor "Profissional\nde Saúde" as PS
+actor "Gestor /\nEquipe SUS" as GT
+
+rectangle "Plataforma mare.IA — FamilIAr_Ativa" {
+  usecase "Registrar sintomas\n(ESAS)" as UC1
+  usecase "Responder\nEscala Zarit" as UC2
+  usecase "Chat seguro com\no profissional" as UC3
+  usecase "Acessar módulos\neducativos e direitos" as UC4
+  usecase "Gerir alertas\nclínicos" as UC5
+  usecase "Dashboard e\ntendências (14 dias)" as UC6
+  usecase "Consultar IA clínica\n(XAI)" as UC7
+  usecase "Indicadores\nagregados (SUS)" as UC8
+  usecase "Exportar\nrelatório PDF" as UC9
+}
+
+PC --> UC1
+PC --> UC2
+PC --> UC3
+PC --> UC4
+PCA --> UC1
+PCA --> UC3
+PCA --> UC4
+PS --> UC5
+PS --> UC6
+PS --> UC7
+PS --> UC3
+GT --> UC8
+GT --> UC9
+@enduml

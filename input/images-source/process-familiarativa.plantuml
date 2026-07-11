@@ -1,0 +1,28 @@
+@startuml
+title Fluxo BP-01 — Registro ESAS (FamilIAr_Ativa)
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+
+|Cuidador / Paciente|
+start
+:Acessar sistema e selecionar\nperfil do paciente (UC-06);
+repeat
+  :Preencher os 6 campos ESAS\n(dor, dispneia, ansiedade,\ncansaço, apetite, bem-estar) 0–10;
+repeat while (Todos os campos preenchidos?) is (não)
+->sim;
+
+|Sistema|
+:Somar escores e classificar:\nBaixo (0–30) / Moderado (31–50) / Alto (51–70);\ngerar timestamp imutável;
+if (Risco Alto?) then (sim)
+  :Exibir orientação ao cuidador;
+  :Disparar UC-19 (alerta)\ne UC-21 (notificação);
+else (não)
+  :Exibir confirmação de envio;
+  stop
+endif
+
+|Profissional de Saúde|
+:Receber notificação e acessar\ndashboard (UC-07/UC-08);
+:Gerir alerta (BP-03): responder cuidador (BP-04),\nresolver com anotação clínica;
+stop
+@enduml

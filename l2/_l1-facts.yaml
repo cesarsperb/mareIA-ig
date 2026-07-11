@@ -1,0 +1,175 @@
+# Fatos L1 normalizados — Pathway FamilIAr_Ativa (mareIA)
+# Fonte: sources/FamilIAr_Ativa_DAK_L2_SMART.pdf (extração em _dak_extract.txt)
+# Gerado pelo subagente l1-extractor. NÃO contém conteúdo fora do DAK fonte.
+# Pendências clínicas marcadas com status: review + adr.
+
+meta:
+  pathway: FamilIAr_Ativa
+  populacao: Pacientes em cuidados paliativos domiciliares e seus cuidadores familiares
+  instituicao_lider: UFPel / CUIDATIVA / RNP
+  fonte: DAK L2 FamilIAr_Ativa v0.1, Junho/2026 (baseado no SMART Guidelines Starter Kit v2.0.0)
+
+recommendations:
+  - id: rec-paliativos-domiciliares
+    texto: Suporte contínuo a pacientes em cuidados paliativos domiciliares e seus cuidadores, com protocolos clínicos digitalizados, IA para detecção/predição de risco e comunicação segura com a equipe de saúde.
+    source: "DAK Componente 1 (introdução); §1.1"
+  - id: rec-manejo-sintomas-esas
+    texto: Manejar sintomas paliativos (dor, dispneia, ansiedade, cansaço, apetite, bem-estar) por registro digital no formulário ESAS (6 domínios, 0-10).
+    source: "DAK §1.1; §5.1"
+  - id: rec-apoio-cuidador-zarit
+    texto: Avaliar periodicamente a sobrecarga do cuidador familiar pela Escala Zarit (22 itens, 0-88).
+    source: "DAK §1.1; §5.2"
+  - id: rec-comunicacao-segura
+    texto: Comunicação assíncrona segura entre cuidador/paciente e profissional de saúde (chat criptografado).
+    source: "DAK §1.1; §1.2 (C1.1)"
+  - id: rec-educacao-saude
+    texto: Educação digital em saúde por módulos educativos prescritos pela equipe, incluindo direitos e rede de apoio (SUS).
+    source: "DAK §1.1; §1.2 (E1.1); RF-PC04/RF-PC05"
+  - id: rec-suporte-decisao-xai
+    texto: Suporte à decisão clínica por protocolo auditável (RF-PS05) e predição de risco por IA com explicabilidade XAI (RF-PS06).
+    source: "DAK §1.2 (B1.1, B2.1); §9.1"
+  - id: rec-indicadores-sus
+    texto: Indicadores epidemiológicos agregados e desidentificados para gestão (painel Gestor/SUS).
+    source: "DAK §1.2 (D1.1); §8"
+
+dhi_who:
+  - {codigo: A1.1, intervencao: Coleta de dados clínicos por formulário digital, implementacao: ESAS e Zarit em app mobile/web, source: "DAK §1.2"}
+  - {codigo: A2.1, intervencao: Transmissão de dados clínicos ao profissional, implementacao: Registro ESAS -> alerta ao profissional vinculado, source: "DAK §1.2"}
+  - {codigo: B1.1, intervencao: Suporte à decisão clínica baseado em protocolo, implementacao: RF-PS05 detecção de risco por protocolo auditável, source: "DAK §1.2"}
+  - {codigo: B2.1, intervencao: Predição de risco por IA com explicabilidade (XAI), implementacao: RF-PS06 modelo preditivo + XAI, source: "DAK §1.2"}
+  - {codigo: C1.1, intervencao: Comunicação assíncrona segura profissional-paciente, implementacao: Chat cuidador <-> profissional, source: "DAK §1.2"}
+  - {codigo: D1.1, intervencao: Indicadores epidemiológicos agregados, implementacao: Painel Gestor/SUS com dados desidentificados, source: "DAK §1.2"}
+  - {codigo: E1.1, intervencao: Educação digital em saúde, implementacao: Módulos educativos prescritos pela equipe, source: "DAK §1.2"}
+
+actors:
+  - id: caregiver
+    rotulo: Cuidador Familiar (PC)
+    acesso: App mobile/web (conectividade variável; ESAS com modo offline)
+    funcao: Usuário primário. Registra sintomas (ESAS), responde Zarit, troca mensagens com o profissional e acessa módulos educativos.
+    restricoes: Sem vocabulário clínico técnico; possível sobrecarga emocional; disponibilidade intermitente; baixa a moderada literacia digital.
+    source: "DAK Componente 2, Persona 1"
+  - id: patient-selfcare
+    rotulo: Paciente em Autocuidado (PC-A)
+    acesso: App mobile/web (interface acessível)
+    funcao: Opera o sistema com autonomia funcional (Cenário A); realiza as mesmas funções do cuidador.
+    restricoes: Fadiga, dor ou limitação cognitiva podem impactar o preenchimento.
+    source: "DAK Componente 2, Persona 2"
+  - id: health-professional
+    rotulo: Profissional de Saúde (PS)
+    acesso: Web (dashboard clínico) / app profissional
+    funcao: Monitora pacientes vinculados; recebe/resolve alertas, responde mensagens, usa IA clínica (com XAI), visualiza dashboards e tendências (14 dias).
+    source: "DAK Componente 2, Persona 3"
+  - id: sus-manager
+    rotulo: Gestor / Equipe SUS (GT)
+    acesso: Web (painel de indicadores; dados desidentificados)
+    funcao: Acessa indicadores epidemiológicos agregados, monitora adesão da equipe (meta 80%) e exporta relatórios PDF.
+    source: "DAK Componente 2, Persona 4"
+
+cenarios_operacao:
+  - id: cenario-a
+    texto: Paciente em autocuidado — opera o sistema diretamente.
+    source: "DAK Componente 2 (abertura)"
+  - id: cenario-b
+    texto: Paciente com cuidador — cuidador opera o sistema; paciente é fonte de dados clínicos.
+    source: "DAK Componente 2 (abertura)"
+
+data_elements:
+  esas:
+    - {id: dor, tipo: integer, min: 0, max: 10, obrigatorio: sim, loinc: "38208-5", status: review, adr: ADR-0004, source: "DAK §5.1"}
+    - {id: dispneia, tipo: integer, min: 0, max: 10, obrigatorio: sim, loinc: "89443-6", status: review, adr: ADR-0004, source: "DAK §5.1"}
+    - {id: ansiedade, tipo: integer, min: 0, max: 10, obrigatorio: sim, loinc: "89444-4", status: review, adr: ADR-0004, source: "DAK §5.1"}
+    - {id: cansaco, tipo: integer, min: 0, max: 10, obrigatorio: sim, loinc: "89445-1", status: review, adr: ADR-0004, source: "DAK §5.1"}
+    - {id: apetite, tipo: integer, min: 0, max: 10, obrigatorio: sim, loinc: "89446-9", status: review, adr: ADR-0004, source: "DAK §5.1"}
+    - {id: bem-estar, tipo: integer, min: 0, max: 10, obrigatorio: sim, loinc: "89447-7", status: review, adr: ADR-0004, source: "DAK §5.1"}
+    - {id: nivel-risco, tipo: enum-calculado, valores: [Baixo, Moderado, Alto], mapeamento: "RiskAssessment.prediction.outcome (SNOMED CT) / componente de Observation", source: "DAK §5.1; §6.1"}
+    - {id: data-registro, tipo: timestamp-utc, mapeamento: Observation.effectiveDateTime, imutavel: true, source: "DAK §5.1; RF-PC01"}
+  zarit:
+    - {id: respostas, tipo: "array int[22]", min: 0, max: 4, obrigatorio: sim, mapeamento: "QuestionnaireResponse.item[0..21]", nota: "Texto dos 22 itens NÃO consta no DAK (ZBI-22 sob copyright)", status: review, adr: ADR-0005, source: "DAK §5.2"}
+    - {id: pontuacao, tipo: int-calculado, min: 0, max: 88, mapeamento: Observation.valueInteger, source: "DAK §5.2"}
+    - {id: classificacao, tipo: enum-calculado, valores: [Leve, Moderada, Severa], mapeamento: Observation.interpretation, source: "DAK §5.2; §6.2"}
+    - {id: data-avaliacao, tipo: timestamp-utc, mapeamento: Observation.effectiveDateTime, source: "DAK §5.2"}
+  alerta:
+    - {id: alerta-id, tipo: UUID, mapeamento: Flag.id, source: "DAK §5.3"}
+    - {id: paciente-id, tipo: "UUID (FK)", mapeamento: "Flag.subject -> Patient", source: "DAK §5.3"}
+    - {id: profissional-id, tipo: "UUID (FK)", mapeamento: "Flag.author -> Practitioner", source: "DAK §5.3"}
+    - {id: tipo, tipo: enum, valores: [ESAS_ALTO, ZARIT_SEVERA, ADESAO_BAIXA], source: "DAK §5.3"}
+    - {id: status, tipo: enum, valores: [Aberto, Resolvido], mapeamento: "Flag.status (active/inactive)", source: "DAK §5.3"}
+    - {id: criado-em, tipo: timestamp, mapeamento: Flag.period.start, source: "DAK §5.3"}
+
+decision_rules:
+  - id: escore-esas
+    texto: soma_esas = soma dos 6 domínios (0-10 cada). Máximo aritmético 60, porém a tabela de risco vai até 70.
+    status: review
+    adr: ADR-0004
+    source: "DAK §4.2 (etapa 4); §6.1"
+  - id: faixa-risco-esas
+    tabela: [{faixa: "0-30", saida: Baixo, acao: "Exibir confirmação de envio. Sem alerta."},
+             {faixa: "31-50", saida: Moderado, acao: "Exibir confirmação. Registrar para tendência."},
+             {faixa: "51-70", saida: Alto, acao: "Exibir orientação ao cuidador. Criar alerta. Notificar profissional vinculado."}]
+    status: review
+    adr: ADR-0004
+    source: "DAK §6.1"
+  - id: classificacao-zarit
+    tabela: [{faixa: "0-20", saida: Leve, acao: "Exibir resultado. Registrar histórico. Sem notificação."},
+             {faixa: "21-40", saida: Moderada, acao: "Exibir resultado. Registrar histórico. Sem notificação."},
+             {faixa: "41-88", saida: Severa, acao: "Exibir resultado ao cuidador. Notificar profissional vinculado."}]
+    source: "DAK §6.2"
+  - id: alertas-ativos
+    regras:
+      - {id: RA-01, condicao: "soma_esas > 50", acao: "Criar alerta ESAS_ALTO + notificar profissional + mensagem ao cuidador"}
+      - {id: RA-02, condicao: "zarit >= 41", acao: "Criar alerta ZARIT_SEVERA + notificar profissional"}
+      - {id: RA-03, condicao: "dias_sem_registro > janela_esperada", acao: "Sinalizar queda de adesão no painel do Gestor"}
+      - {id: RA-04, condicao: "alerta.status = Aberto (sem resolução)", acao: "Manter visível no painel do Gestor como 'requer atenção'"}
+      - {id: RA-05, condicao: "nivel_risco = Alto", acao: "Exibir mensagem bidirecional: cuidador + profissional"}
+    source: "DAK §6.3"
+  - id: agendamento
+    regras:
+      - {evento: Registro ESAS, frequencia: Diário, ajuste: "2x/dia se risco Alto recente", responsavel: Profissional de saúde}
+      - {evento: Escala Zarit, frequencia: Mensal, ajuste: "Semanal se classificação Severa na última avaliação", responsavel: Profissional de saúde}
+      - {evento: Notificação de adesão, frequencia: Semanal (Gestor), ajuste: "Alerta imediato se taxa < 80% em qualquer período de 7 dias", responsavel: Sistema automático}
+      - {evento: Atualização dashboard Gestor, frequencia: "A cada hora (view materializada)", ajuste: "Tempo real para alertas abertos", responsavel: Sistema automático}
+    nota: Implementação prevista como ServiceRequest.occurrence[x]; frequência padrão configurada pelo profissional no cadastro do vínculo clínico.
+    source: "DAK Componente 7"
+
+business_processes:
+  - {id: BP-01, nome: Registro de sintomas ESAS, persona: Cuidador/Paciente, resultado: Registro clínico + classificação de risco automática, source: "DAK §4.1"}
+  - {id: BP-02, nome: Avaliação de sobrecarga Zarit, persona: Cuidador, resultado: Pontuação + classificação + notificação se severa, source: "DAK §4.1"}
+  - {id: BP-03, nome: Gestão de alertas clínicos, persona: Profissional de Saúde, resultado: Alerta resolvido com anotação clínica, source: "DAK §4.1"}
+  - {id: BP-04, nome: Comunicação cuidador-profissional, persona: Cuidador + Profissional, resultado: Mensagem entregue, respondida e registrada, source: "DAK §4.1"}
+  - {id: BP-05, nome: Suporte de IA clínica, persona: Profissional de Saúde, resultado: Recomendação com explicabilidade XAI, source: "DAK §4.1"}
+  - {id: BP-06, nome: Acesso a módulos educativos, persona: Cuidador/Paciente, resultado: Engajamento registrado no perfil do paciente, source: "DAK §4.1"}
+  - {id: BP-07, nome: Monitoramento epidemiológico, persona: Gestor/SUS, resultado: Indicadores atualizados; relatório exportado, source: "DAK §4.1"}
+
+indicators:
+  - {id: ind-01-adesao, nome: Taxa de adesão ao monitoramento (%), tipo: processo, numerador: "Pacientes com >=1 registro ESAS no período", denominador: Total de pacientes ativos, meta: "80%", desagregacao: REGISTRO_SINTOMAS, source: "DAK Componente 8 (IND-01)"}
+  - {id: ind-02-risco-alto, nome: Proporção de registros com risco Alto, tipo: resultado, numerador: "Registros com nivel_risco = Alto", denominador: Total de registros ESAS no período, desagregacao: por profissional, source: "DAK Componente 8 (IND-02)"}
+  - {id: ind-03-resolucao-alertas, nome: Taxa de resolução de alertas, tipo: processo, numerador: "Alertas com status = Resolvido", denominador: Total de alertas criados no período, desagregacao: por profissional, source: "DAK Componente 8 (IND-03)"}
+  - {id: ind-04-sobrecarga-severa, nome: Prevalência de sobrecarga severa do cuidador, tipo: resultado, numerador: Avaliações Zarit com classificação Severa, denominador: Total de avaliações Zarit no período, desagregacao: por unidade, source: "DAK Componente 8 (IND-04)"}
+  - {id: ind-05-tempo-resolucao, nome: Tempo médio de resolução de alerta (horas), tipo: resultado, numerador: "Soma (resolvido_em - criado_em) para alertas resolvidos", denominador: Total de alertas resolvidos, desagregacao: por profissional, source: "DAK Componente 8 (IND-05)"}
+  - {id: ind-06-engajamento-educativo, nome: Taxa de engajamento educativo, tipo: processo, numerador: "Pacientes com >=1 acesso a módulo educativo no mês", denominador: Total de pacientes ativos, desagregacao: por unidade, source: "DAK Componente 8 (IND-06)"}
+  - {id: ind-07-media-esas, nome: Pontuação média ESAS por domínio, tipo: resultado, numerador: Soma dos escores por sintoma, denominador: Total de registros no período, desagregacao: por diagnóstico, source: "DAK Componente 8 (IND-07)"}
+
+requirements:
+  funcionais:
+    - {id: RF-PC01, persona: Cuidador/Paciente, texto: "Registrar sintomas via formulário ESAS (6 campos 0-10)", aceite: "Todos os campos obrigatórios; risco calculado e exibido imediatamente; timestamp imutável", source: "DAK §9.1"}
+    - {id: RF-PC02, persona: Cuidador, texto: "Responder Escala Zarit (22 itens, 0-4 cada)", aceite: "22 itens obrigatórios; pontuação e classificação exibidas; notificação se Severa", source: "DAK §9.1"}
+    - {id: RF-PC03, persona: Cuidador/Paciente, texto: "Enviar mensagem ao profissional via chat seguro", aceite: "Mensagem não vazia; canal criptografado; histórico mantido", source: "DAK §9.1"}
+    - {id: RF-PC04, persona: Cuidador/Paciente, texto: "Acessar módulos educativos por categoria", aceite: "Acesso registrado em ACESSO_MODULO com timestamp", source: "DAK §9.1"}
+    - {id: RF-PC05, persona: Cuidador/Paciente, texto: "Consultar direitos e rede de apoio (SUS)", aceite: "Seção disponível offline; contatos de serviços incluídos", source: "DAK §9.1"}
+    - {id: RF-PS01, persona: Profissional, texto: "Visualizar dashboard consolidado de pacientes ativos", aceite: "Atualização em tempo real; filtros por período e risco", source: "DAK §9.1"}
+    - {id: RF-PS02, persona: Profissional, texto: "Receber e resolver alertas clínicos", aceite: "Alerta criado automaticamente; status rastreável; observação clínica registrada", source: "DAK §9.1"}
+    - {id: RF-PS03, persona: Profissional, texto: "Consultar gráficos de tendência de sintomas (14 dias)", aceite: "Visualização por paciente e por domínio ESAS", source: "DAK §9.1"}
+    - {id: RF-PS04, persona: Profissional, texto: "Responder mensagens de cuidadores", aceite: "Histórico acessível; notificação de nova mensagem", source: "DAK §9.1"}
+    - {id: RF-PS05, persona: Profissional, texto: "Consultar detecção de risco baseada em protocolo auditável", aceite: "Regras DMN documentadas; resultado explicável", source: "DAK §9.1"}
+    - {id: RF-PS06, persona: Profissional, texto: "Consultar predição de risco com IA e XAI", aceite: "Modelo preditivo com score de probabilidade; fatores explicados por XAI", source: "DAK §9.1"}
+    - {id: RF-GT01, persona: Gestor/SUS, texto: "Visualizar indicadores epidemiológicos agregados (dados desidentificados)", aceite: "IND-01 a IND-07 disponíveis; sem acesso a dados individuais", source: "DAK §9.1"}
+    - {id: RF-GT02, persona: Gestor/SUS, texto: "Exportar relatório de pacientes em PDF", aceite: "Filtros por período, profissional e diagnóstico; geração < 30 seg", source: "DAK §9.1"}
+  nao_funcionais:
+    - {id: RNF-01, categoria: Segurança, texto: "Dados clínicos criptografados em trânsito (TLS 1.3) e em repouso (AES-256). Conformidade LGPD.", source: "DAK §9.2"}
+    - {id: RNF-02, categoria: Autenticação, texto: "Acesso por perfil com autenticação multifator. Row Level Security (RLS) no banco.", source: "DAK §9.2"}
+    - {id: RNF-03, categoria: Responsividade, texto: "Interface funcional em mobile (<=375px) e web. Tempo de resposta < 2s para ESAS.", source: "DAK §9.2"}
+    - {id: RNF-04, categoria: Interoperabilidade, texto: "HL7 FHIR R4; integração e-SUS APS e RNDS via FHIR; LOINC, SNOMED CT, CID-10.", source: "DAK §9.2"}
+    - {id: RNF-05, categoria: Disponibilidade, texto: "SLA 99,5% para coleta; modo offline para ESAS com sincronização.", source: "DAK §9.2"}
+    - {id: RNF-06, categoria: Escalabilidade, texto: "PostgreSQL com schemas por módulo (auth, clinical, alerts, messaging, education, analytics); crescimento até TRL 7.", source: "DAK §9.2"}
+    - {id: RNF-07, categoria: Privacidade, texto: "Gestor acessa apenas views materializadas desidentificadas (schema analytics); dados individuais só ao profissional vinculado.", source: "DAK §9.2"}
+    - {id: RNF-08, categoria: Acessibilidade, texto: "WCAG 2.1 AA; fontes >=16px em mobile; contraste >=4.5:1; leitores de tela.", source: "DAK §9.2"}

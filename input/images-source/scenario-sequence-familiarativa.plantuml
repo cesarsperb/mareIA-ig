@@ -1,0 +1,28 @@
+@startuml
+title Cenário ponta a ponta — FamilIAr_Ativa (Cenários 1 e 2 do DAK)
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+
+actor "Paciente\n(Maria)" as P
+actor "Cuidador\n(João)" as PC
+participant "Plataforma mare.IA\n(FamilIAr_Ativa)" as SYS
+participant "Profissional de Saúde\n(Dra. Ana)" as PS
+participant "Gestor /\nEquipe SUS" as GT
+
+PC -> SYS: Selecionar perfil de Maria (UC-06)
+PC -> SYS: Preencher ESAS (dor 8, dispneia 7, ...)
+SYS -> SYS: Somar escores, gerar timestamp imutável\ne classificar risco (Alto)
+alt Risco Alto (RA-01 / RA-05)
+  SYS -> PC: Orientação: contatar o profissional
+  SYS -> PS: Alerta ESAS_ALTO + notificação (tempo real)
+end
+PS -> SYS: Consultar histórico e tendência (14 dias)
+PS -> PC: Mensagem no chat seguro (manejo imediato)\ne agendamento de visita
+loop Avaliação periódica do cuidador
+  SYS -> PC: Notificar Escala Zarit
+  PC -> SYS: Responder 22 itens (pontuação 64)
+  SYS -> PS: Notificar Sobrecarga Severa (RA-02)
+end
+SYS -> GT: Indicadores agregados desidentificados\n(adesão, risco, alertas)
+GT -> GT: Exportar relatório PDF
+@enduml

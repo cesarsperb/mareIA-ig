@@ -1,0 +1,48 @@
+@startuml
+title PlanDefinition — FamiliarAtivaRiskDetection
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+
+start
+:Registrar sintomas (ESAS);
+note right
+  Ação 1 — definitionCanonical →
+  Questionnaire familiarativa-esas
+end note
+
+:Calcular soma ESAS;
+note right
+  library → FamiliarAtivaEsasZaritLogic
+  (6 domínios 0–10; REVISAR ADR-0004)
+end note
+
+switch (Ação 2 — Nível de risco (soma))
+case ( 0–30 )
+  :Baixo — confirmação de envio;
+case ( 31–50 )
+  :Moderado — registrar tendência;
+case ( 51–70 )
+  :Alto — orientar cuidador,\ncriar alerta, notificar (RA-01/RA-05);
+endswitch
+
+:Ação 3 — Avaliar sobrecarga do cuidador (Zarit);
+note right
+  Questionnaire familiarativa-zarit (ZBI-22)
+  0–20 Leve · 21–40 Moderada · 41–88 Severa
+  Severa → RA-02 (notificar profissional)
+end note
+
+:Ação 4 — Avaliar regras de alerta;
+note right
+  RA-03 queda de adesão (Gestor)
+  RA-04 alerta aberto → "requer atenção"
+end note
+
+:Ação 5 — Definir/ajustar periodicidade;
+note right
+  ESAS diário (2×/dia se risco Alto recente)
+  Zarit mensal (semanal se Severa)
+  Adesão: alerta se < 80% em 7 dias
+end note
+stop
+@enduml

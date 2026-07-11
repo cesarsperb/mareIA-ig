@@ -1,0 +1,8 @@
+id,nome,tipo,numerador,denominador,descricao,fonte_l1
+ind-01-adesao,Taxa de adesao ao monitoramento (%),processo,Pacientes com >=1 registro ESAS no periodo,Total de pacientes ativos,Adesao ao monitoramento; meta 80%; fonte REGISTRO_SINTOMAS,DAK Comp.8 IND-01
+ind-02-risco-alto,Proporcao de registros com risco Alto,resultado,Registros com nivel_risco = Alto,Total de registros ESAS no periodo,Carga de risco alto; desagregado por profissional,DAK Comp.8 IND-02
+ind-03-resolucao-alertas,Taxa de resolucao de alertas,processo,Alertas com status = Resolvido,Total de alertas criados no periodo,Resolutividade de alertas; por profissional,DAK Comp.8 IND-03
+ind-04-sobrecarga-severa,Prevalencia de sobrecarga severa do cuidador,resultado,Avaliacoes Zarit com classificacao Severa,Total de avaliacoes Zarit no periodo,Sobrecarga do cuidador; por unidade,DAK Comp.8 IND-04
+ind-05-tempo-resolucao,Tempo medio de resolucao de alerta (horas),resultado,Soma (resolvido_em - criado_em) para alertas resolvidos,Total de alertas resolvidos,Tempo ate resolucao; por profissional,DAK Comp.8 IND-05
+ind-06-engajamento-educativo,Taxa de engajamento educativo,processo,Pacientes com >=1 acesso a modulo educativo no mes,Total de pacientes ativos,Engajamento educativo; fonte ACESSO_MODULO; por unidade,DAK Comp.8 IND-06
+ind-07-media-esas,Pontuacao media ESAS por dominio,resultado,Soma dos escores por sintoma,Total de registros no periodo,Media por dominio ESAS; por diagnostico,DAK Comp.8 IND-07
