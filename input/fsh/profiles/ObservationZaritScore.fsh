@@ -10,9 +10,11 @@ Description: "Resultado de uma avaliação da Escala Zarit (ZBI-22): pontuação
 * code = FamiliarAtivaObsCodeCS#zarit-total-score
 * code MS
 * subject 1..1 MS
-* subject ^short = "Cuidador avaliado (RelatedPerson) — sobrecarga do cuidador"
-* subject only Reference(FamiliarAtivaRelatedPersonCaregiver)
-* focus ^short = "Paciente em cuidados paliativos relacionado à sobrecarga"
+* subject only Reference(FamiliarAtivaPatientPalliative)
+* subject ^short = "Paciente em cuidados paliativos relacionado à sobrecarga medida"
+* focus 1..1 MS
+* focus only Reference(FamiliarAtivaRelatedPersonCaregiver)
+* focus ^short = "Cuidador avaliado — sobrecarga medida sobre este cuidador (Observation.focus, pois RelatedPerson não é tipo válido para subject em R4)"
 * effective[x] 1..1 MS
 * value[x] only integer
 * valueInteger MS

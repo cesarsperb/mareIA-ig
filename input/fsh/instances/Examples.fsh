@@ -56,8 +56,8 @@ Description: "Avaliação Zarit do cuidador João com pontuação 64, classifica
 * status = #final
 * category = $obs-category#survey
 * code = FamiliarAtivaObsCodeCS#zarit-total-score
-* subject = Reference(familiarativa-caregiver-example)
-* focus = Reference(familiarativa-patient-example)
+* subject = Reference(familiarativa-patient-example)
+* focus = Reference(familiarativa-caregiver-example)
 * effectiveDateTime = "2026-07-05T10:30:00Z"
 * valueInteger = 64
 * interpretation = FamiliarAtivaZaritClassCS#severa "Sobrecarga severa"
